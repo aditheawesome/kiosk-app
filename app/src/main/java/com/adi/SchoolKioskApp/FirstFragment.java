@@ -191,6 +191,9 @@ private URL homeURL;
                 }
                 boolean status = false;
                 TextView tv1 = (TextView) getView().findViewById(R.id.idtext);
+                if (tv1.getText().equals("99999")){
+                    getActivity().recreate();
+                }
                 if (nameStatus.equals("Invalid ID")){
                     tv1.setText(invalidStudent());
                 }
