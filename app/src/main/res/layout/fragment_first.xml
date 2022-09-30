@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FirstFragment">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:weightSum="6.5"
+    android:background="#EFE5E5"
+    android:layout_height="match_parent">
+<View
+    android:layout_width="fill_parent"
+    android:layout_height="0dp"
+    android:id="@+id/viewabove"
+    android:background="#55EFE5E5"
+    android:layout_weight="0.175"></View>
+    <TextView
+        android:id="@+id/idtext"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.9"
+        android:autoSizeTextType="uniform"
+        android:background="#55EFE5E5"
+        android:gravity="center"
+        android:text="Enter ID"
+        android:textColor="#000000">
+
+    </TextView>
+    <View
+        android:layout_width="fill_parent"
+        android:id="@+id/viewbelow"
+        android:layout_height="0dp"
+        android:background="#55EFE5E5"
+        android:layout_weight="0.175"></View>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.05"
+        android:background = "#000000"></View>
+<View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.32"></View>
+<LinearLayout
+    android:layout_weight="0.9"
+    android:layout_width="fill_parent"
+    android:weightSum="4.0"
+    android:layout_height="0dp">
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.2"></View>
+    <Button
+        android:id="@+id/buttonone"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:backgroundTint="#4C4C4C"
+        android:autoSizeTextType="uniform"
+        android:text="1" />
+<View
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_weight="0.3"></View>
+    <Button
+        android:id="@+id/buttontwo"
+        android:layout_width="0dp"
+        android:backgroundTint="#4C4C4C"
+        android:layout_weight="1"
+        android:autoSizeTextType="uniform"
+        android:layout_height="fill_parent"
+        android:text="2" />
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.3"></View>
+    <Button
+        android:id="@+id/buttonthree"
+        android:layout_width="0dp"
+        android:backgroundTint="#4C4C4C"
+        android:layout_weight="1"
+        android:autoSizeTextType="uniform"
+        android:layout_height="fill_parent"
+        android:text="3" />
+</LinearLayout>
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.32"></View>
+<LinearLayout
+        android:layout_width="fill_parent"
+        android:weightSum="4"
+
+        android:layout_weight="0.9"
+
+    android:layout_height="0dp">
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.2"></View>
+        <Button
+            android:id="@+id/buttonfour"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:backgroundTint="#4C4C4C"
+            android:autoSizeTextType="uniform"
+            android:text="4"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.3"></View>
+        <Button
+            android:id="@+id/buttonfive"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:backgroundTint="#4C4C4C"
+
+            android:autoSizeTextType="uniform"
+            android:layout_height="fill_parent"
+            android:text="5" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.3"></View>
+        <Button
+            android:id="@+id/buttonsix"
+            android:layout_width="0dp"
+            android:autoSizeTextType="uniform"
+            android:layout_weight="1"
+            android:backgroundTint="#4C4C4C"
+            android:layout_height="fill_parent"
+            android:text="6" />
+    </LinearLayout>
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.32"></View>
+<LinearLayout
+        android:layout_width="fill_parent"
+        android:weightSum="4"
+    android:layout_weight="0.9"
+
+    android:layout_height="0dp">
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.2"></View>
+        <Button
+            android:id="@+id/buttonseven"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:backgroundTint="#4C4C4C"
+
+            android:autoSizeTextType="uniform"
+            android:text="7" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.3"></View>
+        <Button
+            android:id="@+id/buttoneight"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:backgroundTint="#4C4C4C"
+
+            android:autoSizeTextType="uniform"
+            android:layout_height="fill_parent"
+            android:text="8" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.3"></View>
+        <Button
+            android:id="@+id/buttonnine"
+            android:layout_width="0dp"
+            android:backgroundTint="#4C4C4C"
+            android:layout_weight="1"
+            android:autoSizeTextType="uniform"
+            android:layout_height="fill_parent"
+            android:text="9" />
+    </LinearLayout>
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.32"></View>
+<LinearLayout
+        android:layout_width="fill_parent"
+        android:weightSum="4"
+        android:layout_weight="0.9"
+        android:layout_height="0dp">
+
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.2"></View>
+        <Button
+            android:id="@+id/buttonsubmit"
+            android:layout_width="0dp"
+            android:autoSizeTextType="uniform"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:maxLines="1"
+            android:textColor="#2FFF00"
+            android:backgroundTint="#4C4C4C"
+            android:text="SUBMIT" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.3"></View>
+        <Button
+            android:id="@+id/buttonzero"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:backgroundTint="#4C4C4C"
+            android:autoSizeTextType="uniform"
+            android:layout_height="fill_parent"
+            android:text="0" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.3"></View>
+        <Button
+            android:id="@+id/buttondelete"
+            android:layout_width="0dp"
+            android:backgroundTint="#4C4C4C"
+            android:layout_weight="1"
+            android:layout_height="fill_parent"
+            android:maxLines="1"
+            android:textColor="#FF2F00"
+            android:autoSizeTextType="uniform"
+            android:text="DELETE" />
+    </LinearLayout>
+
+</LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
