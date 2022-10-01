@@ -35,8 +35,8 @@ private URL homeURL;
     ) {
         try {
 
-//            homeURL = new URL("http://10.56.9.186:8000/kiosk/login");
-            homeURL = new URL("https://api.github.com/users/google");
+            homeURL = new URL("http://10.56.9.186:8000/kiosk/login?id=21935&kiosk=2");
+//            homeURL = new URL("https://api.github.com/users/google");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -171,11 +171,11 @@ private URL homeURL;
                     HttpURLConnection con = (HttpURLConnection) homeURL.openConnection();
                     con.setRequestMethod("GET");
                     con.getRequestMethod();
-                    con.setDoOutput(true);
-                    DataOutputStream dos = new DataOutputStream(con.getOutputStream());
-//                    dos.writeChars("?param1="+curText+"&param2=value2");
-                    dos.flush();
-                    dos.close();
+//                    con.setDoOutput(true);
+//                    DataOutputStream dos = new DataOutputStream(con.getOutputStream());
+//                    dos.writeChars("?id="+curText+"&kiosk=2");
+//                    dos.flush();
+//                    dos.close();
                     BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
                     String inputLine = in.readLine();
                     in.close();
@@ -183,11 +183,11 @@ private URL homeURL;
                     nameStatus = (String) jObject.get("name");
                     privStatus = (boolean) jObject.get("seniorPriv");
                 } catch (ProtocolException e) {
-//                    System.out.println(e);
+                    System.out.println(e);
                 } catch (IOException e) {
-//                    System.out.println(e);
+                    System.out.println(e);
                 } catch (JSONException e) {
-//                    System.out.println(e);
+                    System.out.println(e);
                 }
                 boolean status = false;
                 TextView tv1 = (TextView) getView().findViewById(R.id.idtext);
