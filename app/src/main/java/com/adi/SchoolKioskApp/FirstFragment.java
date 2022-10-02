@@ -7,18 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import java.util.*;
+
 import java.net.*;
 import java.io.*;
-import java.util.concurrent.TimeUnit;
 
-import org.json.simple.JSONArray;
-import org.json.simple.parser.*;
 import org.json.*;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
+
 import com.adi.SchoolKioskApp.databinding.FragmentFirstBinding;
 
 public class FirstFragment extends Fragment {
@@ -26,30 +23,23 @@ public class FirstFragment extends Fragment {
 private FragmentFirstBinding binding;
 private int textLen = 0;
 private String curText = "Enter ID";
-private URL homeURL;
 
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-        try {
-
-            homeURL = new URL("http://10.56.9.186:8000/kiosk/login?id=21935&kiosk=2");
-//            homeURL = new URL("https://api.github.com/users/google");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
         binding = FragmentFirstBinding.inflate(inflater, container, false);
       return binding.getRoot();
 
     }
+
     public void resetDisplay(){
         textLen = 0;
         curText = "Enter ID";
     }
     public String addText(String text){
-        if (textLen <= 4) {
+        if (textLen <= 4 && !(curText.equals("Authorized") || curText.equals("No Senior Priv") || curText.equals("Invalid ID"))) {
             if (textLen == 0) {
                 curText = text;
             } else {
@@ -72,116 +62,102 @@ private URL homeURL;
         return curText;
     }
     public String deleteText(){
-        if (textLen > 0) {
-            textLen -= 1;
-            curText = curText.substring(0, textLen);
-        }
-        if (textLen == 0){
-            curText = "Enter ID";
+        if (!(curText.equals("Authorized") || curText.equals("No Senior Priv") || curText.equals("Invalid ID")))
+        {
+            if (textLen > 0) {
+                textLen -= 1;
+                curText = curText.substring(0, textLen);
+            }
+            if (textLen == 0) {
+                curText = "Enter ID";
+            }
         }
         return curText;
+    }
+    public void clickButton(String output){
+        TextView tv1 = (TextView) getView().findViewById(R.id.idtext);
+        tv1.setText(addText(output));
+        ((MainActivity) getActivity()).vibrateButton();
     }
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         binding.buttonone.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                TextView tv1 = (TextView) getView().findViewById(R.id.idtext);
-                tv1.setText(addText("1"));
-            }
+            public void onClick(View view) {clickButton("1");}
         });
         binding.buttontwo.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                TextView tv1 = (TextView) getView().findViewById(R.id.idtext);
-                tv1.setText(addText("2"));
-            }
+            public void onClick(View view) {clickButton("2");}
         });
         binding.buttonthree.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                TextView tv1 = (TextView) getView().findViewById(R.id.idtext);
-                tv1.setText(addText("3"));
-            }
+            public void onClick(View view) {clickButton("3");}
         });
         binding.buttonfour.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                TextView tv1 = (TextView) getView().findViewById(R.id.idtext);
-                tv1.setText(addText("4"));
-            }
+            public void onClick(View view) {clickButton("4");}
         });
         binding.buttonfive.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                TextView tv1 = (TextView) getView().findViewById(R.id.idtext);
-                tv1.setText(addText("5"));
-            }
+            public void onClick(View view) {clickButton("5");}
         });
         binding.buttonsix.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                TextView tv1 = (TextView) getView().findViewById(R.id.idtext);
-                tv1.setText(addText("6"));
-            }
+            public void onClick(View view) {clickButton("6");}
         });
         binding.buttonseven.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                TextView tv1 = (TextView) getView().findViewById(R.id.idtext);
-                tv1.setText(addText("7"));
-            }
+            public void onClick(View view) {clickButton("7");}
         });
         binding.buttoneight.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                TextView tv1 = (TextView) getView().findViewById(R.id.idtext);
-                tv1.setText(addText("8"));
-            }
+            public void onClick(View view) {clickButton("8");}
         });
         binding.buttonnine.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                TextView tv1 = (TextView) getView().findViewById(R.id.idtext);
-                tv1.setText(addText("9"));
-            }
+            public void onClick(View view) {clickButton("9");}
         });
         binding.buttonzero.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                TextView tv1 = (TextView) getView().findViewById(R.id.idtext);
-                tv1.setText(addText("0"));
-            }
+            public void onClick(View view) {clickButton("0");}
         });
         binding.buttondelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ((MainActivity) getActivity()).vibrateButton();
                 TextView tv1 = (TextView) getView().findViewById(R.id.idtext);
                 tv1.setText(deleteText());
+            }
+        });
+        binding.buttondelete.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                resetDisplay();
+                return false;
             }
         });
         binding.buttonsubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean privStatus = false;
+                ((MainActivity) getActivity()).vibrateButton();
+                int privStatus = 0;
                 String nameStatus = null;
                 try {
+                    URL homeURL = new URL("http://192.168.1.218:8000/kiosk/login" + "?id=" + curText + "&kiosk=2");
 //                    URL url = new URL("https://api.github.com/users/google");
                     HttpURLConnection con = (HttpURLConnection) homeURL.openConnection();
                     con.setRequestMethod("GET");
-                    con.getRequestMethod();
 //                    con.setDoOutput(true);
-//                    DataOutputStream dos = new DataOutputStream(con.getOutputStream());
-//                    dos.writeChars("?id="+curText+"&kiosk=2");
-//                    dos.flush();
-//                    dos.close();
                     BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                    //hi
+                    System.out.println("Hi");
                     String inputLine = in.readLine();
+                    inputLine = inputLine.concat(in.readLine().concat(in.readLine().concat(in.readLine().concat(in.readLine().concat(in.readLine().concat(in.readLine()))))));
                     in.close();
                     JSONObject jObject = new JSONObject(inputLine);
                     nameStatus = (String) jObject.get("name");
-                    privStatus = (boolean) jObject.get("seniorPriv");
+                    privStatus = (int) jObject.get("seniorPriv");
                 } catch (ProtocolException e) {
                     System.out.println(e);
                 } catch (IOException e) {
@@ -197,7 +173,7 @@ private URL homeURL;
                 if (nameStatus.equals("Invalid ID")){
                     tv1.setText(invalidStudent());
                 }
-                else if (privStatus == false){
+                else if (privStatus == 0){
                     tv1.setText(noPriv());
                 }
                 else{
@@ -235,7 +211,7 @@ private URL homeURL;
                         getView().findViewById(R.id.viewabove).setBackgroundColor(Color.parseColor("#55EFE5E5"));
                         getView().findViewById(R.id.viewbelow).setBackgroundColor(Color.parseColor("#55EFE5E5"));
                     }
-                }, 500); //3000 is time in ms.
+                }, 750); //3000 is time in ms.
 
 
             }

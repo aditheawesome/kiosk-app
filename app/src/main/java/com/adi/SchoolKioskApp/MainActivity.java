@@ -1,10 +1,13 @@
 package com.adi.SchoolKioskApp;
 
+import android.os.Build;
 import android.os.Bundle;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.StrictMode;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.view.View;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -19,11 +22,11 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
 private ActivityMainBinding binding;
-
+protected Vibrator myVib;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        myVib = (Vibrator) getSystemService(VIBRATOR_SERVICE);
      binding = ActivityMainBinding.inflate(getLayoutInflater());
      setContentView(binding.getRoot());
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -45,6 +48,17 @@ private ActivityMainBinding binding;
                         .setAction("Action", null).show();
             }
         });
+    }
+    public void vibrateButton(){
+        final VibrationEffect VibrationEffect2;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            VibrationEffect2 = VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK);
+            myVib.cancel();
+
+            myVib.vibrate(VibrationEffect2);
+        }
+
+        // it is safe to cancel other vibrations currently taking place
     }
 @Override
     public boolean onCreateOptionsMenu(Menu menu) {
