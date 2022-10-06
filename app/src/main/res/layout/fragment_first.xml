@@ -209,7 +209,7 @@
         android:layout_height="fill_parent"
         android:layout_weight="1"
         android:autoSizeTextType="uniform"
-        android:backgroundTint="#92000000"
+        android:backgroundTint="#000000"
         android:maxLines="1"
         android:text="OK"
         android:textColor="#77FFFFFF" />
