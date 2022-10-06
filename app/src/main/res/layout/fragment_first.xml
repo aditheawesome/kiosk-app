@@ -201,17 +201,21 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="0.2"></View>
-        <Button
-            android:id="@+id/buttonsubmit"
-            android:layout_width="0dp"
-            android:autoSizeTextType="uniform"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:maxLines="1"
-            android:textColor="#2FFF00"
-            android:backgroundTint="#000000"
-            android:text="OK" />
-        <View
+
+    <Button
+        android:enabled="false"
+        android:id="@+id/buttonsubmit"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:autoSizeTextType="uniform"
+        android:backgroundTint="#92000000"
+        android:maxLines="1"
+        android:text="OK"
+        android:textColor="#77FFFFFF" />
+    <!-- button color: 2FFF00 -->
+
+    <View
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="0.3"></View>

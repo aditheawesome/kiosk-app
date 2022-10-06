@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.net.*;
@@ -33,10 +34,37 @@ private String curText = "Enter ID";
       return binding.getRoot();
 
     }
-
+    public void enableOK(){
+        Button okbutton = (Button) getView().findViewById(R.id.buttonsubmit);
+        okbutton.setEnabled(true);
+        okbutton.setTextColor(0xFF2FFF00);
+    }
+    public boolean checkServer(){
+        try {
+            URL homeURL = new URL("http://10.56.9.186:8000");
+//                  Testing URL:
+//                  URL homeURL = new URL("http://10.36.4.51:8000/kiosk/login" + "?id=" + curText + "&kiosk=2");
+            HttpURLConnection con = (HttpURLConnection) homeURL.openConnection();
+            con.setRequestMethod("GET");
+            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            String inputLine = in.readLine();
+            in.close();
+        } catch (Exception e) {
+            curText = "Couldn't connect";
+            return false;
+        }
+        curText = "Connection Success!";
+        return true;
+    }
+    public void disableOK(){
+        Button okbutton = (Button) getView().findViewById(R.id.buttonsubmit);
+        okbutton.setEnabled(false);
+        okbutton.setTextColor(0x77FFFFFF);
+    }
     public void resetDisplay(){
         textLen = 0;
         curText = "Enter ID";
+        disableOK();
     }
     public String addText(String text){
         if (textLen <= 4 && !(curText.equals("Authorized") || curText.equals("No Senior Priv") || curText.equals("Invalid ID"))) {
@@ -46,6 +74,9 @@ private String curText = "Enter ID";
                 curText = curText + text;
             }
             textLen += 1;
+        if (textLen == 5){
+            enableOK();
+        }
         }
         return curText;
     }
@@ -72,6 +103,7 @@ private String curText = "Enter ID";
                 curText = "Enter ID";
             }
         }
+        disableOK();
         return curText;
     }
     public void clickButton(String output){
@@ -140,63 +172,71 @@ private String curText = "Enter ID";
         binding.buttonsubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity) getActivity()).vibrateButton();
-                int privStatus = 0;
-                String nameStatus = null;
-                try {
-                    URL homeURL = new URL("http://192.168.1.218:8000/kiosk/login" + "?id=" + curText + "&kiosk=2");
-//                    URL url = new URL("https://api.github.com/users/google");
-                    HttpURLConnection con = (HttpURLConnection) homeURL.openConnection();
-                    con.setRequestMethod("GET");
-//                    con.setDoOutput(true);
-                    BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                    //hi
-                    System.out.println("Hi");
-                    String inputLine = in.readLine();
-                    inputLine = inputLine.concat(in.readLine().concat(in.readLine().concat(in.readLine().concat(in.readLine().concat(in.readLine().concat(in.readLine()))))));
-                    in.close();
-                    JSONObject jObject = new JSONObject(inputLine);
-                    nameStatus = (String) jObject.get("name");
-                    privStatus = (int) jObject.get("seniorPriv");
-                } catch (ProtocolException e) {
-                    System.out.println(e);
-                } catch (IOException e) {
-                    System.out.println(e);
-                } catch (JSONException e) {
-                    System.out.println(e);
-                }
-                boolean status = false;
                 TextView tv1 = (TextView) getView().findViewById(R.id.idtext);
-                if (tv1.getText().equals("99999")){
-                    getActivity().recreate();
+                ((MainActivity) getActivity()).vibrateButton();
+                boolean privStatus = false;
+                String nameStatus = null;
+                boolean status = false;
+                if (curText.equals("99999")){
+                    status = checkServer();
                 }
-                if (nameStatus.equals("Invalid ID")){
-                    tv1.setText(invalidStudent());
+                else {
+                    try {
+                        //                  Real URL
+                        URL homeURL = new URL("http://10.56.9.186:8000/kiosk/login" + "?id=" + curText + "&kiosk=2");
+                        //                  Testing URL:
+                        //                  URL homeURL = new URL("http://10.36.4.51:8000/kiosk/login" + "?id=" + curText + "&kiosk=2");
+                        HttpURLConnection con = (HttpURLConnection) homeURL.openConnection();
+                        con.setRequestMethod("GET");
+                        //                    con.setDoOutput(true);
+                        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                        //hi
+                        System.out.println("Hi");
+                        String inputLine = in.readLine();
+                        System.out.println(inputLine);
+                        //                    inputLine = inputLine.concat(in.readLine().concat(in.readLine().concat(in.readLine().concat(in.readLine().concat(in.readLine().concat(in.readLine()))))));
+                        in.close();
+                        JSONObject jObject = new JSONObject(inputLine);
+                        nameStatus = (String) jObject.get("name");
+                        if (nameStatus.equals("Invalid ID")) {
+                            if ((int) jObject.get("seniorPriv") == 1) {
+                                privStatus = true;
+                            }
+                        } else {
+                            privStatus = (boolean) jObject.get("seniorPriv");
+                        }
+                    } catch (ProtocolException e) {
+                        System.out.println(e);
+                    } catch (IOException e) {
+                        System.out.println(e);
+                    } catch (JSONException e) {
+                        System.out.println(e);
+                    }
+                    if (nameStatus.equals("Invalid ID")) {
+                        tv1.setText(invalidStudent());
+                    } else if (privStatus == false) {
+                        tv1.setText(noPriv());
+                    } else {
+                        tv1.setText(success());
+                        status = true;
+                    }
+                    //                try {
+                    //                    TimeUnit.MILLISECONDS.sleep(500);
+                    //                } catch (InterruptedException e) {
+                    //                    System.out.println("yo");
+                    //                    // Does nothing, because the display will be reset
+                    //                }
+                    //                resetDisplay();
                 }
-                else if (privStatus == 0){
-                    tv1.setText(noPriv());
-                }
-                else{
-                    tv1.setText(success());
-                    status = true;
-                }
-                if (status == true){
+                if (status == true) {
                     tv1.setBackgroundColor(Color.parseColor("#551FFF00"));
                     getView().findViewById(R.id.viewabove).setBackgroundColor(Color.parseColor("#551FFF00"));
                     getView().findViewById(R.id.viewbelow).setBackgroundColor(Color.parseColor("#551FFF00"));
-                }
-                else{
+                } else {
                     tv1.setBackgroundColor(Color.parseColor("#55FF1F00"));
                     getView().findViewById(R.id.viewabove).setBackgroundColor(Color.parseColor("#55FF1F00"));
                     getView().findViewById(R.id.viewbelow).setBackgroundColor(Color.parseColor("#55FF1F00"));
                 }
-//                try {
-//                    TimeUnit.MILLISECONDS.sleep(500);
-//                } catch (InterruptedException e) {
-//                    System.out.println("yo");
-//                    // Does nothing, because the display will be reset
-//                }
-//                resetDisplay();
                 tv1.setText(curText);
                 TextView tv2 = (TextView) getView().findViewById(R.id.idtext);
                 String tv2text = (String) tv2.getText();
