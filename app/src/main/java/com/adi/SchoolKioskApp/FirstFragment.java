@@ -25,6 +25,7 @@ private FragmentFirstBinding binding;
 private int textLen = 0;
 private String curText = "Enter ID";
 
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -41,20 +42,25 @@ private String curText = "Enter ID";
     }
     public boolean checkServer(){
         try {
-            URL homeURL = new URL("http://10.56.9.186:8000");
-//                  Testing URL:
-//                  URL homeURL = new URL("http://10.36.4.51:8000/kiosk/login" + "?id=" + curText + "&kiosk=2");
-            HttpURLConnection con = (HttpURLConnection) homeURL.openConnection();
-            con.setRequestMethod("GET");
-            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            String inputLine = in.readLine();
-            in.close();
+            Socket socket = new Socket();
+
+//          Home Testing
+            String homeHostName = "192.168.1.218";
+
+//          School Testing
+//          String homeHostName = "10.36.4.51";
+
+//          Real URL
+//          String homeHostName = "10.56.9.186";
+
+            int homePort = 8000;
+            socket.connect(new InetSocketAddress(homeHostName, homePort), 500);
+            curText = "Connection Successful!";
+            return true;
         } catch (Exception e) {
             curText = "Couldn't connect";
             return false;
         }
-        curText = "Connection Success!";
-        return true;
     }
     public void disableOK(){
         Button okbutton = (Button) getView().findViewById(R.id.buttonsubmit);
@@ -182,10 +188,12 @@ private String curText = "Enter ID";
                 }
                 else {
                     try {
-                        //                  Real URL
-                        URL homeURL = new URL("http://10.56.9.186:8000/kiosk/login" + "?id=" + curText + "&kiosk=2");
-                        //                  Testing URL:
-                        //                  URL homeURL = new URL("http://10.36.4.51:8000/kiosk/login" + "?id=" + curText + "&kiosk=2");
+                        // Home Testing URL
+                        URL homeURL = new URL("http://192.168.1.218:8000/kiosk/login" + "?id=" + curText + "&kiosk=2");
+//                      //                  Real URL
+//                      URL homeURL = new URL("http://10.56.9.186:8000/kiosk/login" + "?id=" + curText + "&kiosk=2");
+                        //                  School Testing URL:
+//                      URL homeURL = new URL("http://10.36.4.51:8000/kiosk/login" + "?id=" + curText + "&kiosk=2");
                         HttpURLConnection con = (HttpURLConnection) homeURL.openConnection();
                         con.setRequestMethod("GET");
                         //                    con.setDoOutput(true);
