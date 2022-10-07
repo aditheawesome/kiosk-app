@@ -45,13 +45,13 @@ private String curText = "Enter ID";
             Socket socket = new Socket();
 
 //          Home Testing
-            String homeHostName = "192.168.1.218";
+//          String homeHostName = "192.168.1.218";
 
 //          School Testing
 //          String homeHostName = "10.36.4.51";
 
 //          Real URL
-//          String homeHostName = "10.56.9.186";
+            String homeHostName = "10.56.9.186";
 
             int homePort = 8000;
             socket.connect(new InetSocketAddress(homeHostName, homePort), 500);
@@ -189,9 +189,9 @@ private String curText = "Enter ID";
                 else {
                     try {
                         // Home Testing URL
-                        URL homeURL = new URL("http://192.168.1.218:8000/kiosk/login" + "?id=" + curText + "&kiosk=2");
+//                        URL homeURL = new URL("http://192.168.1.218:8000/kiosk/login" + "?id=" + curText + "&kiosk=2");
 //                      //                  Real URL
-//                      URL homeURL = new URL("http://10.56.9.186:8000/kiosk/login" + "?id=" + curText + "&kiosk=2");
+                        URL homeURL = new URL("http://10.56.9.186:8000/kiosk/login" + "?id=" + curText + "&kiosk=2");
                         //                  School Testing URL:
 //                      URL homeURL = new URL("http://10.36.4.51:8000/kiosk/login" + "?id=" + curText + "&kiosk=2");
                         HttpURLConnection con = (HttpURLConnection) homeURL.openConnection();
