@@ -2,7 +2,7 @@
 
 An app for the kiosks at Millburn High School!
 
-# Version 1.0
+# Version 1.0 (Works for any device)
 
 * Student inputs their ID through a 10 digit keypad
 * App sends student id to server, and the app returns server-side result.
