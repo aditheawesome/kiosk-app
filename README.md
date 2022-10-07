@@ -15,8 +15,8 @@ An app for the kiosks at Millburn High School!
 
 ## Made by
 
-Aditya Mittal
-Benjamin Li
-Neel Ahuja
-Ritvik Gupta
-Zayn Rekhi
+Aditya Mittal <br/>
+Benjamin Li <br/>
+Neel Ahuja <br/>
+Ritvik Gupta <br/>
+Zayn Rekhi <br/>
