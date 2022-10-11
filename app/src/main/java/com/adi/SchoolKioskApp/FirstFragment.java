@@ -191,7 +191,7 @@ private String curText = "Enter ID";
                         // Home Testing URL
 //                        URL homeURL = new URL("http://192.168.1.218:8000/kiosk/login" + "?id=" + curText + "&kiosk=2");
 //                      //                  Real URL
-                        URL homeURL = new URL("http://10.56.9.186:8000/kiosk/login" + "?id=" + curText + "&kiosk=0171");
+                        URL homeURL = new URL("http://10.56.9.186:8000/kiosk/login" + "?id=" + curText + "&kiosk=0149");
                         //                  School Testing URL:
 //                      URL homeURL = new URL("http://10.36.4.51:8000/kiosk/login" + "?id=" + curText + "&kiosk=2");
                         HttpURLConnection con = (HttpURLConnection) homeURL.openConnection();
