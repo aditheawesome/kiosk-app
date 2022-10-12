@@ -90,6 +90,10 @@ private String curText = "Enter ID";
         curText = "Invalid ID";
         return curText;
     }
+    public String serverError(){
+        curText = "Server Error. Try again in 5 seconds";
+        return curText;
+    }
     public String noPriv(){
         curText = "No Senior Priv";
         return curText;
@@ -220,21 +224,17 @@ private String curText = "Enter ID";
                     } catch (JSONException e) {
                         System.out.println(e);
                     }
-                    if (nameStatus.equals("Invalid ID")) {
-                        tv1.setText(invalidStudent());
-                    } else if (privStatus == false) {
-                        tv1.setText(noPriv());
-                    } else {
-                        tv1.setText(success());
-                        status = true;
-                    }
-                    //                try {
-                    //                    TimeUnit.MILLISECONDS.sleep(500);
-                    //                } catch (InterruptedException e) {
-                    //                    System.out.println("yo");
-                    //                    // Does nothing, because the display will be reset
-                    //                }
-                    //                resetDisplay();
+                if (nameStatus == null){
+                    tv1.setText(serverError());
+                }
+                else if (nameStatus.equals("Invalid ID")) {
+                    tv1.setText(invalidStudent());
+                } else if (privStatus == false) {
+                    tv1.setText(noPriv());
+                } else {
+                    tv1.setText(success());
+                    status = true;
+                }
                 }
                 if (status == true) {
                     tv1.setBackgroundColor(Color.parseColor("#551FFF00"));
