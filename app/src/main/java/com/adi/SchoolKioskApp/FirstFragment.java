@@ -25,7 +25,6 @@ private FragmentFirstBinding binding;
 private int textLen = 0;
 private String curText = "Enter ID";
 
-
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -88,14 +87,22 @@ private String curText = "Enter ID";
     }
     public String invalidStudent(){
         curText = "Invalid ID";
+        textLen = 0;
+        return curText;
+    }
+    public String serverError(){
+        curText = "Server Error. Try again in 5 seconds";
+        textLen = 0;
         return curText;
     }
     public String noPriv(){
         curText = "No Senior Priv";
+        textLen = 0;
         return curText;
     }
     public String success() {
         curText = "Authorized";
+        textLen = 0;
         return curText;
     }
     public String deleteText(){
@@ -191,7 +198,8 @@ private String curText = "Enter ID";
                         // Home Testing URL
 //                        URL homeURL = new URL("http://192.168.1.218:8000/kiosk/login" + "?id=" + curText + "&kiosk=2");
 //                      //                  Real URL
-                        URL homeURL = new URL("http://10.56.9.186:8000/kiosk/login" + "?id=" + curText + "&kiosk=2");
+                        System.out.println((Integer.parseInt(((MainActivity) getActivity()).getName())-1));
+                        URL homeURL = new URL("http://10.56.9.186:8000/kiosk/login" + "?id=" + curText + "&kiosk=" + (Integer.parseInt(((MainActivity) getActivity()).getName())-1));
                         //                  School Testing URL:
 //                      URL homeURL = new URL("http://10.36.4.51:8000/kiosk/login" + "?id=" + curText + "&kiosk=2");
                         HttpURLConnection con = (HttpURLConnection) homeURL.openConnection();
@@ -220,21 +228,17 @@ private String curText = "Enter ID";
                     } catch (JSONException e) {
                         System.out.println(e);
                     }
-                    if (nameStatus.equals("Invalid ID")) {
-                        tv1.setText(invalidStudent());
-                    } else if (privStatus == false) {
-                        tv1.setText(noPriv());
-                    } else {
-                        tv1.setText(success());
-                        status = true;
-                    }
-                    //                try {
-                    //                    TimeUnit.MILLISECONDS.sleep(500);
-                    //                } catch (InterruptedException e) {
-                    //                    System.out.println("yo");
-                    //                    // Does nothing, because the display will be reset
-                    //                }
-                    //                resetDisplay();
+                if (nameStatus == null){
+                    tv1.setText(serverError());
+                }
+                else if (nameStatus.equals("Invalid ID")) {
+                    tv1.setText(invalidStudent());
+                } else if (privStatus == false) {
+                    tv1.setText(noPriv());
+                } else {
+                    tv1.setText(success());
+                    status = true;
+                }
                 }
                 if (status == true) {
                     tv1.setBackgroundColor(Color.parseColor("#551FFF00"));
@@ -245,6 +249,7 @@ private String curText = "Enter ID";
                     getView().findViewById(R.id.viewabove).setBackgroundColor(Color.parseColor("#55FF1F00"));
                     getView().findViewById(R.id.viewbelow).setBackgroundColor(Color.parseColor("#55FF1F00"));
                 }
+                disableOK();
                 tv1.setText(curText);
                 TextView tv2 = (TextView) getView().findViewById(R.id.idtext);
                 String tv2text = (String) tv2.getText();

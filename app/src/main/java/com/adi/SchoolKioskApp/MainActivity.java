@@ -1,18 +1,27 @@
 package com.adi.SchoolKioskApp;
 
+import android.Manifest;
+import android.bluetooth.BluetoothAdapter;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+
 import com.google.android.material.snackbar.Snackbar;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.StrictMode;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.provider.Settings;
 import android.view.View;
+
+import androidx.core.app.ActivityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
 import com.adi.SchoolKioskApp.databinding.ActivityMainBinding;
 
 import android.view.Menu;
@@ -21,20 +30,18 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
-private ActivityMainBinding binding;
-protected Vibrator myVib;
+    private ActivityMainBinding binding;
+    protected Vibrator myVib;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         myVib = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-     binding = ActivityMainBinding.inflate(getLayoutInflater());
-     setContentView(binding.getRoot());
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
         StrictMode.setThreadPolicy(policy);
-
-
-
 
 
         binding.fab.setOnClickListener(new View.OnClickListener() {
@@ -45,13 +52,16 @@ protected Vibrator myVib;
             }
         });
     }
-    public void vibrateButton(){
+    public String getName(){
+        return Settings.Secure.getString(getContentResolver(), "bluetooth_name");
+    }
+    public void vibrateButton() {
         final VibrationEffect VibrationEffect2;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             VibrationEffect2 = VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK);
             myVib.cancel();
-
             myVib.vibrate(VibrationEffect2);
+
         }
 
         // it is safe to cancel other vibrations currently taking place
